@@ -2,6 +2,7 @@
  * ============================================================
  * MOONLIT BLOOM - ROMANTIC LOVE LETTER
  * Interactive GSAP, HTML5 Canvas, Web Audio & SVG Animation
+ * Adjusted to exact design specifications & uploaded screenshots
  * ============================================================
  */
 
@@ -56,7 +57,6 @@
   // Animation values manipulated via GSAP
   const animState = {
     treeGrowth: 0,
-    petalsBloom: 0,
     bloomSceneAlpha: 0,
     constellationAlpha: 0,
     creatureOrbit: 0, // 0 to 1
@@ -81,7 +81,6 @@
     }
   }
 
-  // Play romantic music box notes if audio file is delayed or blocked
   function playSynthChime(frequency, delay, duration = 1.8) {
     if (!audioCtx || isSoundMuted) return;
     const osc = audioCtx.createOscillator();
@@ -151,7 +150,7 @@
   });
 
   // ============================================================
-  // PARTICLES, STARS, BOKEH & MOTE GENERATION
+  // PARTICLES, STARS, BOKEH & MOTES
   // ============================================================
   const stars = [];
   const bokehOrbs = [];
@@ -161,7 +160,7 @@
 
   function initStarfield() {
     stars.length = 0;
-    const starCount = Math.floor((width * height) / 8000);
+    const starCount = Math.floor((width * height) / 7500);
     for (let i = 0; i < starCount; i++) {
       stars.push({
         x: Math.random() * width,
@@ -176,10 +175,10 @@
 
     bokehOrbs.length = 0;
     const colors = [
-      'rgba(80, 50, 140, 0.25)',
-      'rgba(45, 65, 150, 0.22)',
-      'rgba(140, 50, 110, 0.2)',
-      'rgba(50, 90, 180, 0.18)'
+      'rgba(80, 50, 140, 0.24)',
+      'rgba(45, 65, 150, 0.20)',
+      'rgba(140, 50, 110, 0.18)',
+      'rgba(50, 90, 180, 0.16)'
     ];
     for (let i = 0; i < 7; i++) {
       bokehOrbs.push({
@@ -207,83 +206,76 @@
 
     floatingPetals.length = 0;
     const petalColors = ['#ffe5ec', '#ffc2d1', '#ffb3c6', '#e8dff5', '#cddafd', '#d8f3dc', '#ffe5d9'];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 45; i++) {
       floatingPetals.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: Math.random() * 7 + 5,
+        size: Math.random() * 6 + 4,
         color: petalColors[Math.floor(Math.random() * petalColors.length)],
-        vx: Math.random() * 0.8 + 0.3,
-        vy: Math.random() * 1.2 + 0.6,
+        vx: Math.random() * 0.8 + 0.2,
+        vy: Math.random() * 1.1 + 0.5,
         rotation: Math.random() * Math.PI * 2,
         vRot: (Math.random() - 0.5) * 0.04,
         swaySpeed: Math.random() * 0.03 + 0.015,
-        swayPhase: Math.random() * Math.PI * 2,
-        alpha: Math.random() * 0.6 + 0.4
+        swayPhase: Math.random() * Math.PI * 2
       });
     }
   }
 
   // ============================================================
-  // PROCEDURAL BLOSSOM TREES WITH HEART-SHAPED CANOPIES
+  // OPEN HEART WREATH BLOSSOM TREES (EXACTLY MATCHING IMAGE 3)
   // ============================================================
   let treeLeft = null;
   let treeRight = null;
 
-  function generateHeartPoints(cx, cy, scale, count) {
-    const points = [];
-    for (let i = 0; i < count; i++) {
-      const t = Math.PI * 2 * (i / count);
-      // Parametric 2D heart formula
+  function createHeartWreathTree(startX, startY, forkX, forkY, canopyX, canopyY, scale, petalCount) {
+    // 1. Trunk spine
+    const trunk = [
+      { x: startX, y: startY, width: 14 },
+      { x: startX + (forkX - startX) * 0.5 - 15, y: startY + (forkY - startY) * 0.5, width: 10 },
+      { x: forkX, y: forkY, width: 7 }
+    ];
+
+    // 2. Generate heart perimeter points (parametric 2D heart)
+    const perimeterPoints = [];
+    for (let i = 0; i < petalCount; i++) {
+      const t = Math.PI * 2 * (i / petalCount);
       const hx = 16 * Math.pow(Math.sin(t), 3);
       const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
 
-      // Add controlled internal scatter so heart foliage feels full and organic
-      const jitterFactor = Math.random() * 0.25;
-      const x = cx + (hx * scale) * (1 - jitterFactor);
-      const y = cy + (hy * scale) * (1 - jitterFactor);
+      // Petals form a ribbon/wreath around the perimeter
+      const ribbonWidth = (Math.random() - 0.5) * scale * 2.2;
+      const x = canopyX + (hx * scale) + ribbonWidth;
+      const y = canopyY + (hy * scale) + ribbonWidth;
 
-      points.push({ x, y, angle: t });
+      perimeterPoints.push({ x, y, angle: t });
     }
-    return points;
-  }
 
-  function createTreeStructure(startX, startY, canopyX, canopyY, scale, petalCount) {
-    // Generate trunk and branch spine segments
-    const trunk = [
-      { x: startX, y: startY, width: 14 },
-      { x: startX + (canopyX - startX) * 0.35 - 20, y: startY + (canopyY - startY) * 0.35, width: 11 },
-      { x: startX + (canopyX - startX) * 0.70 + 10, y: startY + (canopyY - startY) * 0.70, width: 7 },
-      { x: canopyX, y: canopyY + scale * 8, width: 4 }
-    ];
-
-    // Branch splits that curve gracefully toward the heart foliage
+    // 3. Radiating branches from the fork node to key perimeter points (ribs)
     const branches = [];
-    const mainBranchesCount = 6;
-    for (let i = 0; i < mainBranchesCount; i++) {
-      const angle = (Math.PI / (mainBranchesCount + 1)) * (i + 1) + (Math.PI * 0.6);
-      const branchLen = scale * 14 * (0.6 + Math.random() * 0.5);
-      const bx = canopyX + Math.cos(angle) * branchLen;
-      const by = canopyY + Math.sin(angle) * branchLen * 0.8;
+    const ribIndices = [0, 15, 30, 45, 60, 75, 90, 105, 120, 135];
+    const totalPts = perimeterPoints.length;
+
+    for (let i = 0; i < 9; i++) {
+      const targetIdx = Math.floor((i / 9) * totalPts);
+      const targetPt = perimeterPoints[targetIdx];
       branches.push({
-        from: { x: canopyX, y: canopyY + scale * 8 },
-        to: { x: bx, y: by },
-        width: 3.5
+        from: { x: forkX, y: forkY },
+        to: { x: targetPt.x, y: targetPt.y },
+        width: 3.2
       });
     }
 
-    // Generate heart-shaped petal positions
-    const heartPoints = generateHeartPoints(canopyX, canopyY, scale, petalCount);
+    // 4. Petals
     const petalColors = ['#fff0f5', '#ffd6e0', '#ffc2d1', '#ffb3c6', '#e8dff5', '#cddafd', '#d8f3dc', '#ffe5d9'];
-
-    const petals = heartPoints.map((pt) => {
+    const petals = perimeterPoints.map((pt) => {
       return {
-        x: pt.x + (Math.random() - 0.5) * scale * 3,
-        y: pt.y + (Math.random() - 0.5) * scale * 3,
-        size: Math.random() * 6 + 6,
+        x: pt.x,
+        y: pt.y,
+        size: Math.random() * 5 + 4.5,
         color: petalColors[Math.floor(Math.random() * petalColors.length)],
         rotation: Math.random() * Math.PI * 2,
-        bloomThreshold: Math.random() * 0.6 + 0.35, // When it pops in relative to tree growth
+        bloomThreshold: Math.random() * 0.5 + 0.35,
         scale: 0
       };
     });
@@ -293,34 +285,37 @@
 
   function initTrees() {
     const isMobile = width < 768;
-    const heartScale = isMobile ? Math.min(width, height) * 0.009 : Math.min(width, height) * 0.011;
+    const heartScale = isMobile ? Math.min(width, height) * 0.0085 : Math.min(width, height) * 0.0105;
 
-    // Tree 1: Left canopy ("you")
-    const t1StartX = width * 0.16;
+    // Left Tree ("you") - canopy at x=0.287, y=0.301 matching Image 3
+    const t1StartX = width * 0.08;
     const t1StartY = height * 1.05;
-    const t1CanopyX = isMobile ? width * 0.38 : width * 0.36;
-    const t1CanopyY = isMobile ? height * 0.28 : height * 0.30;
-    treeLeft = createTreeStructure(t1StartX, t1StartY, t1CanopyX, t1CanopyY, heartScale, 280);
+    const t1ForkX = width * 0.28;
+    const t1ForkY = height * 0.44;
+    const t1CanopyX = width * 0.287;
+    const t1CanopyY = height * 0.301;
+    treeLeft = createHeartWreathTree(t1StartX, t1StartY, t1ForkX, t1ForkY, t1CanopyX, t1CanopyY, heartScale, 180);
 
-    // Tree 2: Right canopy ("me")
-    const t2StartX = width * 0.76;
+    // Right Tree ("me") - canopy at x=0.753, y=0.571 matching Image 3
+    const t2StartX = width * 0.75;
     const t2StartY = height * 1.05;
-    const t2CanopyX = isMobile ? width * 0.72 : width * 0.75;
-    const t2CanopyY = isMobile ? height * 0.58 : height * 0.56;
-    treeRight = createTreeStructure(t2StartX, t2StartY, t2CanopyX, t2CanopyY, heartScale, 260);
+    const t2ForkX = width * 0.75;
+    const t2ForkY = height * 0.72;
+    const t2CanopyX = width * 0.753;
+    const t2CanopyY = height * 0.571;
+    treeRight = createHeartWreathTree(t2StartX, t2StartY, t2ForkX, t2ForkY, t2CanopyX, t2CanopyY, heartScale, 170);
 
-    // Position the badge tags to match canopy locations
+    // Update quote and badge coordinates if needed
     if (badgeYou) {
-      badgeYou.style.left = `${t1CanopyX + heartScale * 12}px`;
-      badgeYou.style.top = `${t1CanopyY - heartScale * 16}px`;
+      badgeYou.style.left = `${width * 0.36}px`;
+      badgeYou.style.top = `${height * 0.16}px`;
     }
     if (badgeMe) {
-      badgeMe.style.left = `${t2CanopyX + heartScale * 12}px`;
-      badgeMe.style.top = `${t2CanopyY - heartScale * 16}px`;
+      badgeMe.style.left = `${width * 0.84}px`;
+      badgeMe.style.top = `${height * 0.44}px`;
     }
   }
 
-  // Draw an individual cute pastel heart petal on canvas
   function drawHeartPetal(x, y, size, color, rot, scale) {
     if (scale <= 0.01) return;
     ctx.save();
@@ -338,19 +333,18 @@
     ctx.closePath();
 
     ctx.fillStyle = color;
-    ctx.shadowColor = 'rgba(255, 180, 210, 0.35)';
+    ctx.shadowColor = 'rgba(255, 180, 210, 0.4)';
     ctx.shadowBlur = 4;
     ctx.fill();
 
     ctx.restore();
   }
 
-  // Draw tree branches with smooth curves and tapering width
   function renderTree(tree, progress) {
     if (progress <= 0) return;
 
     ctx.save();
-    ctx.strokeStyle = '#322547';
+    ctx.strokeStyle = '#2d1b3d';
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
@@ -375,7 +369,7 @@
       }
     }
 
-    // 2. Draw branches
+    // 2. Draw radiating branch ribs
     if (progress > 0.4) {
       const branchProgress = Math.min((progress - 0.4) / 0.35, 1);
       tree.branches.forEach((br) => {
@@ -390,10 +384,9 @@
       });
     }
 
-    // 3. Draw blossoming heart petals
+    // 3. Draw blossoming heart petals forming heart wreath
     tree.petals.forEach((petal) => {
       if (progress >= petal.bloomThreshold) {
-        // Elastic scale ease for bloom pop
         const p = Math.min((progress - petal.bloomThreshold) / 0.25, 1);
         petal.scale = p * (1 + 0.25 * Math.sin(p * Math.PI));
         drawHeartPetal(petal.x, petal.y, petal.size, petal.color, petal.rotation, petal.scale);
@@ -404,22 +397,20 @@
   }
 
   // ============================================================
-  // CONSTELLATION PATH & TWO WINGED CREATURES ORBIT
+  // CONSTELLATION PATH & TWO WINGED CREATURES (IMAGE 2)
   // ============================================================
-  // 12 heart vertices normalized (0 to 1) for the SVG constellation
+  // 10 geometric heart vertices normalized (0 to 1000) matching Image 2
   const constellationHeartPoints = [
-    { x: 500, y: 350 }, // Top dip
-    { x: 620, y: 220 }, // Top right arch
-    { x: 760, y: 260 }, // Right shoulder
-    { x: 860, y: 390 }, // Right upper flank
-    { x: 840, y: 550 }, // Right mid flank
-    { x: 700, y: 720 }, // Right lower flank
-    { x: 500, y: 880 }, // Bottom point
-    { x: 300, y: 720 }, // Left lower flank
-    { x: 160, y: 550 }, // Left mid flank
-    { x: 140, y: 390 }, // Left upper flank
-    { x: 240, y: 260 }, // Left shoulder
-    { x: 380, y: 220 }  // Top left arch
+    { x: 500, y: 310 }, // Top center dip
+    { x: 640, y: 200 }, // Top right arch
+    { x: 790, y: 260 }, // Right shoulder
+    { x: 830, y: 480 }, // Right mid point
+    { x: 680, y: 680 }, // Right lower flank
+    { x: 500, y: 830 }, // Bottom point
+    { x: 320, y: 680 }, // Left lower flank
+    { x: 170, y: 480 }, // Left mid point
+    { x: 210, y: 260 }, // Left shoulder
+    { x: 360, y: 200 }  // Top left arch
   ];
 
   function buildConstellationSVG() {
@@ -460,7 +451,6 @@
     }
   }
 
-  // Get screen coordinate along the heart constellation perimeter given t in [0, 1]
   function getConstellationScreenCoord(t) {
     const pts = constellationHeartPoints;
     const count = pts.length;
@@ -474,12 +464,10 @@
     const svgX = p1.x + (p2.x - p1.x) * fraction;
     const svgY = p1.y + (p2.y - p1.y) * fraction;
 
-    // Convert SVG viewbox coordinates (1000x1000) to actual viewport client coordinates
     const svgRect = document.getElementById('constellationSvg').getBoundingClientRect();
     const screenX = svgRect.left + (svgX / 1000) * svgRect.width;
     const screenY = svgRect.top + (svgY / 1000) * svgRect.height;
 
-    // Angle of motion
     const dx = p2.x - p1.x;
     const dy = p2.y - p1.y;
     const angleRad = Math.atan2(dy, dx);
@@ -488,7 +476,7 @@
   }
 
   // ============================================================
-  // MASTER RENDER LOOP (Canvas Animation)
+  // MASTER RENDER LOOP
   // ============================================================
   function renderScene() {
     ctx.clearRect(0, 0, width, height);
@@ -546,50 +534,52 @@
       ctx.restore();
     }
 
-    // 4. Draw Procedural Trees & Petals (Scene 2)
-    if (animState.treeGrowth > 0.001) {
+    // 4. Draw Procedural Trees & Petals (Scene 2 & lingering in Scene 3 as seen in Image 2)
+    const effectiveTreeAlpha = Math.max(animState.bloomSceneAlpha, animState.constellationAlpha * 0.25);
+    if (animState.treeGrowth > 0.001 && effectiveTreeAlpha > 0.01) {
       ctx.save();
-      ctx.globalAlpha = animState.bloomSceneAlpha;
+      ctx.globalAlpha = effectiveTreeAlpha;
       if (treeLeft) renderTree(treeLeft, animState.treeGrowth);
       if (treeRight) renderTree(treeRight, animState.treeGrowth);
       ctx.restore();
 
       // Draw drifting loose petals
-      ctx.save();
-      ctx.globalAlpha = animState.bloomSceneAlpha * 0.85;
-      floatingPetals.forEach((p) => {
-        p.swayPhase += p.swaySpeed;
-        p.x += p.vx + Math.sin(p.swayPhase) * 0.7;
-        p.y += p.vy;
-        p.rotation += p.vRot;
+      if (animState.bloomSceneAlpha > 0.1) {
+        ctx.save();
+        ctx.globalAlpha = animState.bloomSceneAlpha * 0.85;
+        floatingPetals.forEach((p) => {
+          p.swayPhase += p.swaySpeed;
+          p.x += p.vx + Math.sin(p.swayPhase) * 0.7;
+          p.y += p.vy;
+          p.rotation += p.vRot;
 
-        if (p.y > height + 20) {
-          p.y = -20;
-          p.x = Math.random() * width * 0.7;
-        }
-        if (p.x > width + 20) p.x = -20;
+          if (p.y > height + 20) {
+            p.y = -20;
+            p.x = Math.random() * width * 0.7;
+          }
+          if (p.x > width + 20) p.x = -20;
 
-        drawHeartPetal(p.x, p.y, p.size, p.color, p.rotation, 1);
-      });
-      ctx.restore();
+          drawHeartPetal(p.x, p.y, p.size, p.color, p.rotation, 1);
+        });
+        ctx.restore();
+      }
     }
 
-    // 5. Draw Winged Creatures & Stardust Trails (Scene 3)
+    // 5. Draw Winged Creatures & Stardust Trails (Scene 3 - Image 2)
     if (animState.constellationAlpha > 0.01) {
+      // In Image 2, creature 1 is at top dip, creature 2 is at bottom point
       const tCyan = animState.creatureOrbit % 1;
       const tPink = (animState.creatureOrbit + 0.5) % 1;
 
       const posCyan = getConstellationScreenCoord(tCyan);
       const posPink = getConstellationScreenCoord(tPink);
 
-      // Update Cyan Creature position & rotation
       if (creatureCyan) {
         creatureCyan.style.left = `${posCyan.x}px`;
         creatureCyan.style.top = `${posCyan.y}px`;
         creatureCyan.style.transform = `translate(-50%, -50%) rotate(${posCyan.angle}rad)`;
       }
 
-      // Update Pink Creature position & rotation
       if (creaturePink) {
         creaturePink.style.left = `${posPink.x}px`;
         creaturePink.style.top = `${posPink.y}px`;
@@ -608,7 +598,7 @@
           vy: (Math.random() - 0.5) * 0.4
         });
         stardustTrails.push({
-          x: posPink.y ? posPink.x : posCyan.x,
+          x: posPink.x,
           y: posPink.y,
           r: Math.random() * 2.5 + 1,
           color: '#ff9ec6',
@@ -618,7 +608,7 @@
         });
       }
 
-      // Render stardust trails on canvas
+      // Render stardust trails
       ctx.save();
       for (let i = stardustTrails.length - 1; i >= 0; i--) {
         const p = stardustTrails[i];
@@ -679,7 +669,7 @@
       }, '-=0.5');
 
     // ----------------------------------------------------
-    // STAGE 1.5: Cupid Arrow Streak & Kinetic Typography
+    // STAGE 1.5: Arrow Streak & Kinetic Typography (IMAGE 1)
     // ----------------------------------------------------
     masterTimeline
       .set(confessionSection, {
@@ -709,9 +699,7 @@
         duration: 1.2,
         ease: 'power2.out'
       }, '-=0.2')
-      // Hold confession view gracefully
-      .to({}, { duration: 1.8 })
-      // Flash portal expansion transition
+      .to({}, { duration: 2.0 })
       .to(flashPortal, {
         scale: 32,
         opacity: 1,
@@ -728,7 +716,7 @@
       });
 
     // ----------------------------------------------------
-    // STAGE 2: Blossom Trees & Climax Heart
+    // STAGE 2: Blossom Trees & Climax Heart (IMAGE 3)
     // ----------------------------------------------------
     masterTimeline
       .set(bloomOverlay, {
@@ -747,7 +735,7 @@
         ease: 'power1.inOut'
       }, '-=0.4')
       .to(sunburst, {
-        opacity: 0.65,
+        opacity: 0.7,
         duration: 2.5,
         ease: 'power2.out'
       }, '-=4.0')
@@ -766,14 +754,14 @@
         duration: 0.8,
         ease: 'back.out(1.5)'
       }, '-=2.4')
-      // Ambient poetic quotes
+      // Ambient poetic quotes matching Image 3
       .to([quoteStars, quoteBlooms], {
         opacity: 1,
         duration: 1.2,
         stagger: 0.3,
         ease: 'power2.out'
       }, '-=2.0')
-      // Climax Center Heart appears
+      // Climax Center Heart appears at x=72.3%, y=32.3%
       .to(climaxHeartWrap, {
         scale: 1,
         opacity: 1,
@@ -804,11 +792,10 @@
         duration: 1.2,
         ease: 'power2.out'
       }, '-=0.3')
-      // Hold scene 2 view gracefully
-      .to({}, { duration: 2.2 });
+      .to({}, { duration: 2.4 });
 
     // ----------------------------------------------------
-    // STAGE 3: Constellation & Two Wings, One Sky
+    // STAGE 3: Constellation & Two Wings, One Sky (IMAGE 2)
     // ----------------------------------------------------
     masterTimeline
       .to(bloomOverlay, {
@@ -821,7 +808,7 @@
         }
       })
       .to(animState, {
-        bloomSceneAlpha: 0.15,
+        bloomSceneAlpha: 0,
         duration: 1.0
       }, '-=1.0')
       .set(constellationScene, {
@@ -833,32 +820,28 @@
         duration: 1.2,
         ease: 'power2.out'
       })
-      // Draw constellation lines
       .to('.constellation-line', {
         strokeDashoffset: 0,
         duration: 1.8,
         stagger: 0.08,
         ease: 'power2.out'
       }, '-=0.8')
-      // Center constellation typography
       .to(constellationCenter, {
         opacity: 1,
         duration: 1.2,
         ease: 'power2.out'
       }, '-=1.0')
-      .to('.constellation-underline path', {
+      .to('#constellationUnderline path', {
         strokeDashoffset: 0,
         duration: 1.4,
         ease: 'power2.out'
       }, '-=0.6')
-      // Replay button enters
       .to(againBtn, {
         opacity: 1,
         y: 0,
         duration: 0.8,
         ease: 'back.out(1.2)'
       }, '-=0.4')
-      // Continuous loop for winged creatures orbiting the heart constellation
       .to(animState, {
         creatureOrbit: '+=1000',
         duration: 12000,
@@ -890,7 +873,6 @@
     e.stopPropagation();
     if (!masterTimeline) return;
 
-    // Reset everything smoothly
     gsap.to(['#constellationScene', '#bloomOverlay', '#confession'], {
       opacity: 0,
       duration: 0.6,
@@ -901,21 +883,17 @@
 
         masterTimeline.pause(0);
 
-        // Reset canvas values
         animState.treeGrowth = 0;
-        animState.petalsBloom = 0;
         animState.bloomSceneAlpha = 0;
         animState.constellationAlpha = 0;
         animState.creatureOrbit = 0;
         animState.motesAlpha = 1;
 
-        // Reset stroke dashes
         confessionUnderline.style.strokeDashoffset = '450';
         document.querySelectorAll('.constellation-line').forEach(l => l.style.strokeDashoffset = '400');
-        const cu = document.querySelector('.constellation-underline path');
+        const cu = document.querySelector('#constellationUnderline path');
         if (cu) cu.style.strokeDashoffset = '380';
 
-        // Re-enable hero
         heroSection.style.visibility = 'visible';
         currentScene = 'hero';
         gsap.to(heroSection, { opacity: 1, pointerEvents: 'auto', duration: 0.6 });

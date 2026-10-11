@@ -11,7 +11,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Great+Vibes&display=swap" rel="stylesheet" />
 
   <!-- GSAP Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -81,9 +81,9 @@
         <p class="confession__sub" id="confessionSub">of all the hearts in all the world...</p>
         <h1 class="confession__title" id="confessionTitle">Will You<br><span class="confession__title-line2">Be Mine?</span></h1>
         
-        <!-- Animated Golden Loop Underline Doodle -->
-        <svg class="confession__underline" id="confessionUnderline" viewBox="0 0 280 40" aria-hidden="true">
-          <path d="M 10 22 C 70 34, 150 12, 230 20 C 255 23, 270 28, 250 32 C 220 37, 180 25, 210 24 C 235 23, 265 26, 275 27" fill="none" stroke="#f6c445" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+        <!-- Animated Golden Loop Underline Doodle matching Image 1 -->
+        <svg class="confession__underline" id="confessionUnderline" viewBox="0 0 320 45" aria-hidden="true">
+          <path d="M 6 22 Q 130 18, 225 18 C 255 18, 280 23, 265 29 C 242 34, 218 28, 235 22 C 252 17, 282 20, 292 22" fill="none" stroke="#f5c542" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </div>
 
@@ -92,18 +92,18 @@
 
     <!-- SCENE 2: BLOOM OVERLAY ELEMENTS (Quotes, Badges, Sunburst, Climax Heart) -->
     <section class="bloom-overlay" id="bloomOverlay" aria-hidden="true">
-      <!-- Sunburst Radiant Spotlight Rays -->
+      <!-- Sunburst Radiant Spotlight Rays centered on climax heart -->
       <div class="sunburst" id="sunburst"></div>
 
-      <!-- Tree Canopy Badges -->
+      <!-- Tree Canopy Badges matching Image 3 -->
       <div class="tree-badge badge-you" id="badgeYou">you</div>
       <div class="tree-badge badge-me" id="badgeMe">me</div>
 
-      <!-- Poetic Ambient Quotes -->
+      <!-- Poetic Ambient Quotes matching Image 3 -->
       <p class="quote quote--stars" id="quoteStars">you &amp; me, under the stars</p>
       <p class="quote quote--blooms" id="quoteBlooms">here's to us, and a love that blooms</p>
 
-      <!-- Center Climax Glowing Heart -->
+      <!-- Center Climax Glowing Heart matching Image 3 (x=72.3%, y=32.3%) -->
       <div class="climax-heart-wrap" id="climaxHeartWrap">
         <div class="climax-heart-glow"></div>
         <div class="climax-heart" id="climaxHeart">
@@ -135,42 +135,40 @@
       <div class="neon-confession" id="neonConfession">I love you</div>
     </section>
 
-    <!-- SCENE 3: CELESTIAL HEART CONSTELLATION & TWO WINGS ONE SKY -->
+    <!-- SCENE 3: CELESTIAL HEART CONSTELLATION & TWO WINGS ONE SKY matching Image 2 -->
     <section class="constellation-scene" id="constellationScene" aria-hidden="true">
       <!-- Constellation SVG lines & nodes -->
       <svg class="constellation-svg" id="constellationSvg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
-        <!-- Heart outline paths connecting stars -->
         <g class="constellation-lines" id="constellationLines"></g>
-        <!-- Star nodes -->
         <g class="constellation-nodes" id="constellationNodes"></g>
       </svg>
 
-      <!-- Center Constellation Typography -->
+      <!-- Center Constellation Typography matching Image 2 (-35deg rotation) -->
       <div class="constellation-center" id="constellationCenter">
-        <p class="constellation-sub" id="constellationSub">✦ two wings, one sky ✦</p>
+        <p class="constellation-sub" id="constellationSub">✦ &nbsp; two wings, one sky &nbsp; ✦</p>
         <h2 class="constellation-title" id="constellationTitle">fly with me</h2>
-        <!-- Golden underline doodle -->
-        <svg class="constellation-underline" viewBox="0 0 240 32" aria-hidden="true">
-          <path d="M 8 18 C 60 28, 120 10, 190 16 C 215 18, 230 22, 215 25 C 190 28, 160 20, 185 19 C 205 18, 225 21, 235 22" fill="none" stroke="#f6c445" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <!-- Golden underline with loop matching Image 2 -->
+        <svg class="constellation-underline" id="constellationUnderline" viewBox="0 0 260 36" aria-hidden="true">
+          <path d="M 6 18 L 195 18 C 220 18, 240 23, 228 27 C 210 31, 185 24, 205 20 L 245 22" fill="none" stroke="#f5c542" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </div>
 
-      <!-- Two Luminous Winged Creatures (Cyan & Pink) -->
+      <!-- Two Luminous Winged Creatures matching Image 2 (Cyan Top, Pink Bottom) -->
       <div class="winged-creature creature-cyan" id="creatureCyan">
         <div class="creature-aura"></div>
-        <div class="butterfly">
-          <div class="wing wing--left"></div>
-          <div class="body"></div>
-          <div class="wing wing--right"></div>
+        <div class="capsule-creature">
+          <div class="capsule-wing capsule-wing--top"></div>
+          <div class="capsule-body"></div>
+          <div class="capsule-wing capsule-wing--bottom"></div>
         </div>
       </div>
 
       <div class="winged-creature creature-pink" id="creaturePink">
         <div class="creature-aura"></div>
-        <div class="butterfly">
-          <div class="wing wing--left"></div>
-          <div class="body"></div>
-          <div class="wing wing--right"></div>
+        <div class="capsule-creature">
+          <div class="capsule-wing capsule-wing--top"></div>
+          <div class="capsule-body"></div>
+          <div class="capsule-wing capsule-wing--bottom"></div>
         </div>
       </div>
 

@@ -1,6 +1,6 @@
 /* ============================================================
    MOONLIT BLOOM - ROMANTIC LOVE LETTER EXPERIENCE
-   Styling based on interactive GSAP romantic motion design
+   Styling exactly matched to user screenshots & Instagram reel
    ============================================================ */
 
 :root {
@@ -10,14 +10,14 @@
   --heart-main: #ff6f97;
   --heart-deep: #d81e57;
   --heart-light: #ffd9e4;
-  --gold-accent: #f6c445;
-  --cyan-aura: #9ae8ff;
-  --pink-aura: #ffb4d6;
+  --gold-accent: #f5c542;
+  --cyan-aura: #8ce1ff;
+  --pink-aura: #ff9ec6;
   --text-cream: #fff5f8;
   --text-muted: rgba(255, 235, 242, 0.75);
 
   --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-display: 'Fraunces', 'Cormorant Garamond', serif;
+  --font-display: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
   --font-script: 'Great Vibes', cursive;
 }
 
@@ -48,7 +48,7 @@ html, body {
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 50%, #1c1846 0%, #0d1231 55%, #070a1a 100%);
+  background: radial-gradient(circle at 50% 50%, #1a1642 0%, #0d1231 55%, #070a1a 100%);
 }
 
 /* Background Canvas */
@@ -129,7 +129,7 @@ html, body {
   position: relative;
   z-index: 2;
   font-family: var(--font-serif);
-  font-size: clamp(1.3rem, 3.2vw, 2rem);
+  font-size: clamp(1.3rem, 3.2vw, 2.1rem);
   font-style: italic;
   font-weight: 500;
   color: var(--text-cream);
@@ -244,7 +244,7 @@ html, body {
 }
 
 /* ============================================================
-   SCENE 1.5: CUPID ARROW & KINETIC TYPE CONFESSION
+   SCENE 1.5: CUPID ARROW & KINETIC TYPE CONFESSION (IMAGE 1)
    ============================================================ */
 .confession {
   position: absolute;
@@ -290,7 +290,7 @@ html, body {
   filter: drop-shadow(0 0 12px #ff6f97) drop-shadow(0 0 25px #ffffff);
 }
 
-/* Kinetic Type Card with 3D Tilt */
+/* Confession Card exactly matching Image 1: clean flat -18deg rotation */
 .confession__card {
   position: relative;
   display: flex;
@@ -298,37 +298,34 @@ html, body {
   align-items: flex-start;
   justify-content: center;
   padding: 30px 40px;
-  transform: perspective(900px) rotateX(12deg) rotateY(-8deg) rotateZ(-12deg);
-  transform-style: preserve-3d;
+  transform: rotate(-18deg); /* Exact angle matching Image 1 */
   opacity: 0;
 }
 
 .confession__sub {
   font-family: var(--font-serif);
-  font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+  font-size: clamp(1.2rem, 2.7vw, 1.95rem);
   font-style: italic;
   font-weight: 500;
-  color: rgba(245, 230, 240, 0.9);
+  color: #e5ebf8;
   letter-spacing: 0.04em;
-  margin-bottom: 0.6rem;
-  margin-left: 0.4rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  margin-bottom: 0.5rem;
+  margin-left: 0.3rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .confession__title {
   font-family: var(--font-display);
-  font-size: clamp(3.2rem, 8.5vw, 6.8rem);
+  font-size: clamp(3.4rem, 8.8vw, 6.6rem);
   font-weight: 700;
-  line-height: 0.98;
-  color: #fff9fb;
+  line-height: 0.96;
+  color: #ffffff;
   letter-spacing: -0.01em;
   text-shadow: 
-    1px 1px 0px #d81e57,
-    2px 2px 0px #ba1346,
-    4px 4px 0px #800e30,
-    6px 6px 20px rgba(216, 30, 87, 0.5),
-    0 0 40px rgba(255, 111, 151, 0.35);
-  transform: translateZ(30px);
+    2px 2px 0px #b81436,
+    4px 4px 0px #8a0c24,
+    6px 6px 0px #5c0516,
+    0 0 25px rgba(255, 60, 110, 0.85);
 }
 
 .confession__title-line2 {
@@ -337,13 +334,12 @@ html, body {
 }
 
 .confession__underline {
-  width: clamp(200px, 32vw, 320px);
-  height: 40px;
-  margin-top: -8px;
-  margin-left: 20px;
+  width: clamp(230px, 34vw, 340px);
+  height: 45px;
+  margin-top: -6px;
+  margin-left: 10px;
   overflow: visible;
-  filter: drop-shadow(0 0 8px rgba(246, 196, 69, 0.8)) drop-shadow(0 0 20px rgba(246, 196, 69, 0.4));
-  transform: translateZ(45px);
+  filter: drop-shadow(0 0 8px rgba(245, 197, 66, 0.85)) drop-shadow(0 0 20px rgba(245, 197, 66, 0.45));
 }
 
 .confession__underline path {
@@ -368,7 +364,7 @@ html, body {
 }
 
 /* ============================================================
-   SCENE 2: BLOOM OVERLAY ELEMENTS
+   SCENE 2: BLOOM OVERLAY ELEMENTS (IMAGE 3)
    ============================================================ */
 .bloom-overlay {
   position: absolute;
@@ -379,22 +375,22 @@ html, body {
   visibility: hidden;
 }
 
-/* Radiant Sunburst Rays */
+/* Radiant Sunburst Rays centered at Climax Heart (x=72.3%, y=32.3%) */
 .sunburst {
   position: absolute;
-  top: 38%;
-  left: 70%;
-  width: 120vmax;
-  height: 120vmax;
+  top: 32.3%;
+  left: 72.3%;
+  width: 140vmax;
+  height: 140vmax;
   transform: translate(-50%, -50%);
   background: repeating-conic-gradient(
     from 0deg,
-    rgba(255, 255, 255, 0.05) 0deg 8deg,
+    rgba(255, 255, 255, 0.06) 0deg 8deg,
     transparent 8deg 18deg
   );
   border-radius: 50%;
-  mask-image: radial-gradient(circle, rgba(0, 0, 0, 0.85) 0%, transparent 65%);
-  -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 0.85) 0%, transparent 65%);
+  mask-image: radial-gradient(circle, rgba(0, 0, 0, 0.9) 0%, transparent 65%);
+  -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 0.9) 0%, transparent 65%);
   animation: sunburstRotate 60s linear infinite;
   opacity: 0;
 }
@@ -404,71 +400,75 @@ html, body {
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Canopy Badges */
+/* Canopy Badges exactly matching Image 3 */
 .tree-badge {
   position: absolute;
   z-index: 20;
-  padding: 6px 22px 8px;
-  border-radius: 30px;
-  background: rgba(40, 32, 75, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 6px 26px 8px;
+  border-radius: 28px;
+  background: rgba(28, 24, 52, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   font-family: var(--font-script);
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  color: #fff2f6;
-  text-shadow: 0 0 15px rgba(255, 111, 151, 0.8);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 111, 151, 0.3);
+  font-size: clamp(2rem, 3.8vw, 2.7rem);
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(255, 111, 151, 0.85);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 111, 151, 0.35);
   opacity: 0;
-  transform: scale(0.6) translateY(10px);
+  transform: scale(0.6) translateY(8px);
 }
 
+/* "you" badge placed on top-right of left heart */
 .badge-you {
-  top: 14%;
-  left: 54%;
+  top: 16%;
+  left: 36%;
 }
 
+/* "me" badge placed on right of right heart */
 .badge-me {
   top: 44%;
-  right: 11%;
+  left: 84%;
 }
 
-/* Ambient Poetic Quotes */
+/* Ambient Poetic Quotes matching Image 3: 50deg rotation */
 .quote {
   position: absolute;
   z-index: 18;
   font-family: var(--font-serif);
-  font-size: clamp(0.95rem, 2vw, 1.35rem);
+  font-size: clamp(0.95rem, 1.8vw, 1.3rem);
   font-style: italic;
   font-weight: 500;
-  color: rgba(255, 240, 248, 0.85);
+  color: rgba(255, 240, 248, 0.92);
   letter-spacing: 0.05em;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 111, 151, 0.3);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 111, 151, 0.4);
   opacity: 0;
   white-space: nowrap;
 }
 
+/* "you & me, under the stars" in upper right */
 .quote--stars {
-  top: 24%;
-  right: 10%;
-  transform: rotate(56deg);
+  top: 18%;
+  right: 8%;
+  transform: rotate(50deg);
   transform-origin: center;
 }
 
+/* "here's to us, and a love that blooms" in lower left */
 .quote--blooms {
-  bottom: 35%;
-  left: 17%;
-  transform: rotate(56deg);
+  bottom: 28%;
+  left: 10%;
+  transform: rotate(50deg);
   transform-origin: center;
 }
 
-/* Center Climax Glowing Heart */
+/* Center Climax Glowing Heart matching Image 3 (x=72.3%, y=32.3%) */
 .climax-heart-wrap {
   position: absolute;
-  top: 32%;
-  left: 72%;
-  width: clamp(100px, 14vw, 150px);
-  height: clamp(92px, 13vw, 138px);
+  top: 32.3%;
+  left: 72.3%;
+  width: clamp(100px, 14vw, 145px);
+  height: clamp(92px, 13vw, 133px);
   transform: translate(-50%, -50%) scale(0);
   z-index: 22;
   opacity: 0;
@@ -476,17 +476,17 @@ html, body {
 
 .climax-heart-glow {
   position: absolute;
-  inset: -30%;
+  inset: -35%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 111, 151, 0.6) 0%, rgba(216, 30, 87, 0.3) 50%, transparent 75%);
-  filter: blur(16px);
+  background: radial-gradient(circle, rgba(255, 50, 120, 0.75) 0%, rgba(216, 30, 87, 0.4) 45%, transparent 75%);
+  filter: blur(18px);
   animation: glowPulse 2s ease-in-out infinite;
 }
 
 .climax-heart {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 0 25px rgba(255, 111, 151, 0.8)) drop-shadow(0 0 50px rgba(216, 30, 87, 0.5));
+  filter: drop-shadow(0 0 25px rgba(255, 60, 110, 0.85)) drop-shadow(0 0 50px rgba(216, 30, 87, 0.6));
 }
 
 .climax-heart-svg {
@@ -498,8 +498,8 @@ html, body {
 /* Climax Arrow Shooting Through Heart */
 .climax-arrow-wrap {
   position: absolute;
-  top: 32%;
-  left: 72%;
+  top: 32.3%;
+  left: 72.3%;
   width: 600px;
   height: 40px;
   transform: translate(-50%, -50%) rotate(-35deg);
@@ -518,8 +518,8 @@ html, body {
 /* Neon "I love you" Calligraphy */
 .neon-confession {
   position: absolute;
-  bottom: 40%;
-  left: 20%;
+  bottom: 34%;
+  left: 18%;
   z-index: 26;
   font-family: var(--font-script);
   font-size: clamp(3.2rem, 7vw, 5.5rem);
@@ -529,13 +529,13 @@ html, body {
     0 0 16px #ff6f97,
     0 0 35px #ff1493,
     0 0 60px #e60067;
-  transform: rotate(56deg) scale(0.8);
+  transform: rotate(50deg) scale(0.8);
   opacity: 0;
   white-space: nowrap;
 }
 
 /* ============================================================
-   SCENE 3: CELESTIAL HEART CONSTELLATION & TWO WINGS ONE SKY
+   SCENE 3: CELESTIAL HEART CONSTELLATION (IMAGE 2)
    ============================================================ */
 .constellation-scene {
   position: absolute;
@@ -549,13 +549,13 @@ html, body {
   visibility: hidden;
 }
 
-/* Constellation SVG layer */
+/* Constellation SVG layer matching Image 2 */
 .constellation-svg {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: clamp(320px, 78vmin, 680px);
-  height: clamp(320px, 78vmin, 680px);
+  width: clamp(340px, 80vmin, 660px);
+  height: clamp(340px, 80vmin, 660px);
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 2;
@@ -563,7 +563,7 @@ html, body {
 }
 
 .constellation-line {
-  stroke: rgba(255, 255, 255, 0.55);
+  stroke: rgba(255, 255, 255, 0.65);
   stroke-width: 1.8;
   stroke-linecap: round;
   filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 12px rgba(160, 230, 255, 0.6));
@@ -589,7 +589,7 @@ html, body {
   }
 }
 
-/* Center Constellation Typography */
+/* Center Constellation Typography matching Image 2: -35deg rotation! */
 .constellation-center {
   position: relative;
   z-index: 10;
@@ -598,7 +598,7 @@ html, body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  transform: rotate(35deg);
+  transform: rotate(-35deg); /* Tilted UP-RIGHT matching Image 2! */
   opacity: 0;
 }
 
@@ -606,31 +606,33 @@ html, body {
   font-family: var(--font-serif);
   font-size: clamp(0.85rem, 1.8vw, 1.15rem);
   font-weight: 600;
-  letter-spacing: 0.18em;
-  color: rgba(255, 238, 245, 0.9);
+  letter-spacing: 0.22em;
+  color: rgba(255, 238, 245, 0.95);
   text-transform: lowercase;
   margin-bottom: 0.2rem;
-  text-shadow: 0 0 10px rgba(255, 111, 151, 0.5);
+  text-shadow: 0 0 12px rgba(255, 111, 151, 0.6);
 }
 
 .constellation-title {
   font-family: var(--font-script);
-  font-size: clamp(3.2rem, 7.5vw, 6rem);
+  font-size: clamp(3.6rem, 8vw, 6.2rem);
   font-weight: 400;
   line-height: 1;
-  color: #fff4f8;
+  color: #ffffff;
   text-shadow: 
-    0 0 10px rgba(255, 255, 255, 0.8),
-    0 0 22px rgba(255, 111, 151, 0.8),
-    0 0 45px rgba(216, 30, 87, 0.6);
+    0 0 10px #ffffff,
+    0 0 20px #ff69b4,
+    0 0 35px #da70d6,
+    0 0 50px rgba(216, 30, 87, 0.8);
+  margin: 0.1rem 0;
 }
 
 .constellation-underline {
-  width: clamp(160px, 28vw, 240px);
-  height: 32px;
-  margin-top: -12px;
+  width: clamp(180px, 28vw, 260px);
+  height: 36px;
+  margin-top: -10px;
   overflow: visible;
-  filter: drop-shadow(0 0 8px rgba(246, 196, 69, 0.8)) drop-shadow(0 0 18px rgba(246, 196, 69, 0.4));
+  filter: drop-shadow(0 0 8px rgba(245, 197, 66, 0.85)) drop-shadow(0 0 18px rgba(245, 197, 66, 0.45));
 }
 
 .constellation-underline path {
@@ -638,7 +640,7 @@ html, body {
   stroke-dashoffset: 380;
 }
 
-/* Two Luminous Winged Creatures */
+/* Two Luminous Winged Creatures matching Image 2 (Top Cyan, Bottom Pink) */
 .winged-creature {
   position: absolute;
   width: 44px;
@@ -652,8 +654,8 @@ html, body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 70px;
-  height: 70px;
+  width: 65px;
+  height: 65px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   filter: blur(10px);
@@ -661,84 +663,81 @@ html, body {
 }
 
 .creature-cyan .creature-aura {
-  background: radial-gradient(circle, rgba(160, 235, 255, 0.75) 0%, rgba(100, 200, 255, 0.3) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(140, 225, 255, 0.85) 0%, rgba(70, 180, 255, 0.35) 50%, transparent 75%);
 }
 
 .creature-pink .creature-aura {
-  background: radial-gradient(circle, rgba(255, 160, 200, 0.75) 0%, rgba(255, 100, 160, 0.3) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(255, 140, 190, 0.85) 0%, rgba(255, 70, 140, 0.35) 50%, transparent 75%);
 }
 
-.butterfly {
+/* Capsule Creature with wings matching Image 2 */
+.capsule-creature {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   transform: translate(-50%, -50%);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  perspective: 200px;
 }
 
-.butterfly .body {
-  width: 4px;
-  height: 18px;
-  border-radius: 4px;
+.capsule-body {
+  width: 20px;
+  height: 10px;
+  border-radius: 6px;
   background: #ffffff;
-  box-shadow: 0 0 8px #ffffff;
+  box-shadow: 0 0 10px #ffffff;
   z-index: 2;
 }
 
-.creature-cyan .butterfly .body {
-  background: #e6f9ff;
-  box-shadow: 0 0 10px #8ae4ff;
+.creature-cyan .capsule-body {
+  background: #f0faff;
+  box-shadow: 0 0 12px #8ae4ff;
 }
 
-.creature-pink .butterfly .body {
-  background: #fff0f5;
-  box-shadow: 0 0 10px #ff7da7;
+.creature-pink .capsule-body {
+  background: #fff5f8;
+  box-shadow: 0 0 12px #ff8cb2;
 }
 
-.butterfly .wing {
+.capsule-wing {
   position: absolute;
-  top: 3px;
   width: 14px;
-  height: 20px;
-  border-radius: 50% 50% 40% 40%;
-  transform-origin: center center;
+  height: 8px;
+  border-radius: 50% 50% 30% 30%;
 }
 
-.creature-cyan .butterfly .wing {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(140, 225, 255, 0.8) 50%, rgba(70, 180, 255, 0.5) 100%);
-  box-shadow: 0 0 8px rgba(140, 225, 255, 0.6);
+.creature-cyan .capsule-wing {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(140, 225, 255, 0.8) 100%);
+  box-shadow: 0 0 8px rgba(140, 225, 255, 0.7);
 }
 
-.creature-pink .butterfly .wing {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 160, 200, 0.8) 50%, rgba(230, 70, 140, 0.5) 100%);
-  box-shadow: 0 0 8px rgba(255, 160, 200, 0.6);
+.creature-pink .capsule-wing {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 140, 190, 0.8) 100%);
+  box-shadow: 0 0 8px rgba(255, 140, 190, 0.7);
 }
 
-.butterfly .wing--left {
-  left: 1px;
-  transform-origin: right center;
-  animation: flapLeft 0.18s ease-in-out infinite alternate;
+.capsule-wing--top {
+  top: 2px;
+  animation: flapTop 0.16s ease-in-out infinite alternate;
 }
 
-.butterfly .wing--right {
-  right: 1px;
-  transform-origin: left center;
-  animation: flapRight 0.18s ease-in-out infinite alternate;
+.capsule-wing--bottom {
+  bottom: 2px;
+  animation: flapBottom 0.16s ease-in-out infinite alternate;
 }
 
-@keyframes flapLeft {
-  from { transform: rotateY(0deg) rotateZ(-15deg); }
-  to { transform: rotateY(65deg) rotateZ(-15deg); }
+@keyframes flapTop {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(0.4); }
 }
 
-@keyframes flapRight {
-  from { transform: rotateY(0deg) rotateZ(15deg); }
-  to { transform: rotateY(-65deg) rotateZ(15deg); }
+@keyframes flapBottom {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(0.4); }
 }
 
 /* Replay AGAIN Button */
@@ -753,7 +752,7 @@ html, body {
   gap: 8px;
   padding: 10px 24px;
   border-radius: 30px;
-  background: rgba(30, 24, 60, 0.7);
+  background: rgba(30, 24, 60, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.22);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -801,37 +800,37 @@ html, body {
   }
 
   .badge-you {
-    top: 12%;
-    left: 48%;
+    top: 14%;
+    left: 32%;
   }
 
   .badge-me {
     top: 48%;
-    right: 8%;
+    left: 78%;
   }
 
   .quote--stars {
-    top: 22%;
+    top: 16%;
     right: 4%;
   }
 
   .quote--blooms {
+    bottom: 24%;
+    left: 6%;
+  }
+
+  .neon-confession {
     bottom: 30%;
     left: 10%;
   }
 
-  .neon-confession {
-    bottom: 35%;
-    left: 12%;
-  }
-
   .climax-heart-wrap {
-    top: 35%;
-    left: 68%;
+    top: 32.3%;
+    left: 72.3%;
   }
 
   .climax-arrow-wrap {
-    top: 35%;
-    left: 68%;
+    top: 32.3%;
+    left: 72.3%;
   }
 }
