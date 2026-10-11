@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Will You Be Mine? ♥</title>
+  <meta name="description" content="An interactive love letter - a cupid's arrow, a confession in kinetic type, and a heart blooming under the stars." />
+  <meta name="theme-color" content="#241a4c" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath fill='%23ff6f97' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Great+Vibes&display=swap" rel="stylesheet" />
+
+  <!-- GSAP Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>document.documentElement.classList.add('js')</script>
+
+  <!-- Romantic Stylesheet -->
+  <link rel="stylesheet" href="./romantic.css" />
+</head>
+<body>
+  <main class="scene" id="mainScene">
+    <!-- Starfield, bokeh and blossoming blossom tree canvas -->
+    <canvas id="tree" class="tree" aria-label="A blossom tree grows and blooms into a heart made of petals" role="img"></canvas>
+
+    <!-- Sound Toggle Button -->
+    <button class="sound-btn" id="soundToggle" aria-label="Toggle sound" title="Toggle audio">
+      <svg class="sound-icon sound-icon--on" id="soundIconOn" viewBox="0 0 24 24" width="22" height="22">
+        <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+      </svg>
+      <svg class="sound-icon sound-icon--off" id="soundIconOff" viewBox="0 0 24 24" width="22" height="22" style="display: none;">
+        <path fill="currentColor" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+      </svg>
+    </button>
+
+    <!-- SCENE 1: HERO SCREEN -->
+    <section class="hero" id="hero" role="button" tabindex="0" aria-label="Touch the heart to open your love letter">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__motes" id="motes" aria-hidden="true"></div>
+
+      <p class="hero__eyebrow" id="eyebrow">for the one my heart beats for</p>
+
+      <div class="targetwrap" aria-hidden="true">
+        <div class="target" id="target">
+          <span class="heart__glow" aria-hidden="true"></span>
+          <span class="target__heart" id="targetHeart">
+            <svg class="heart__svg" viewBox="0 0 100 92" aria-hidden="true">
+              <defs>
+                <radialGradient id="hg" cx="38%" cy="30%" r="80%">
+                  <stop offset="0%" stop-color="#ffd9e4" />
+                  <stop offset="42%" stop-color="#ff6f97" />
+                  <stop offset="82%" stop-color="#d81e57" />
+                </radialGradient>
+              </defs>
+              <path d="M50 88.9 C25 72 0 51.5 0 28.5 C0 12.5 12.5 0 28.5 0 C37.8 0 45.8 4.8 50 12.2 C54.2 4.8 62.2 0 71.5 0 C87.5 0 100 12.5 100 28.5 C100 51.5 75 72 50 88.9 Z" fill="url(#hg)" />
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <p class="hero__prompt" id="prompt">TOUCH THE HEART</p>
+    </section>
+
+    <!-- SCENE 1.5: CUPID ARROW & KINETIC TYPE CONFESSION -->
+    <section class="confession" id="confession" aria-hidden="true">
+      <div class="arrow-streak" id="arrowStreak">
+        <div class="arrow-beam"></div>
+        <div class="arrow-head">
+          <svg viewBox="0 0 60 20" width="60" height="20">
+            <line x1="0" y1="10" x2="52" y2="10" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+            <polygon points="45,4 58,10 45,16" fill="#fff" />
+            <path d="M4 4 L14 10 L4 16" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none" />
+            <circle cx="58" cy="10" r="3" fill="#ffe3ec" filter="drop-shadow(0 0 4px #ff6f97)" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="confession__card" id="confessionCard">
+        <p class="confession__sub" id="confessionSub">of all the hearts in all the world...</p>
+        <h1 class="confession__title" id="confessionTitle">Will You<br><span class="confession__title-line2">Be Mine?</span></h1>
+        
+        <!-- Animated Golden Loop Underline Doodle -->
+        <svg class="confession__underline" id="confessionUnderline" viewBox="0 0 280 40" aria-hidden="true">
+          <path d="M 10 22 C 70 34, 150 12, 230 20 C 255 23, 270 28, 250 32 C 220 37, 180 25, 210 24 C 235 23, 265 26, 275 27" fill="none" stroke="#f6c445" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <div class="flash-portal" id="flashPortal" aria-hidden="true"></div>
+    </section>
+
+    <!-- SCENE 2: BLOOM OVERLAY ELEMENTS (Quotes, Badges, Sunburst, Climax Heart) -->
+    <section class="bloom-overlay" id="bloomOverlay" aria-hidden="true">
+      <!-- Sunburst Radiant Spotlight Rays -->
+      <div class="sunburst" id="sunburst"></div>
+
+      <!-- Tree Canopy Badges -->
+      <div class="tree-badge badge-you" id="badgeYou">you</div>
+      <div class="tree-badge badge-me" id="badgeMe">me</div>
+
+      <!-- Poetic Ambient Quotes -->
+      <p class="quote quote--stars" id="quoteStars">you &amp; me, under the stars</p>
+      <p class="quote quote--blooms" id="quoteBlooms">here's to us, and a love that blooms</p>
+
+      <!-- Center Climax Glowing Heart -->
+      <div class="climax-heart-wrap" id="climaxHeartWrap">
+        <div class="climax-heart-glow"></div>
+        <div class="climax-heart" id="climaxHeart">
+          <svg viewBox="0 0 100 92" class="climax-heart-svg">
+            <defs>
+              <radialGradient id="climaxGrad" cx="35%" cy="30%" r="75%">
+                <stop offset="0%" stop-color="#fff5f7" />
+                <stop offset="35%" stop-color="#ff7da7" />
+                <stop offset="75%" stop-color="#e62060" />
+                <stop offset="100%" stop-color="#b50e43" />
+              </radialGradient>
+            </defs>
+            <path d="M50 88.9 C25 72 0 51.5 0 28.5 C0 12.5 12.5 0 28.5 0 C37.8 0 45.8 4.8 50 12.2 C54.2 4.8 62.2 0 71.5 0 C87.5 0 100 12.5 100 28.5 C100 51.5 75 72 50 88.9 Z" fill="url(#climaxGrad)" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Cupid Arrow Shot Through Center Heart -->
+      <div class="climax-arrow-wrap" id="climaxArrowWrap">
+        <svg class="climax-arrow" viewBox="0 0 120 20" width="120" height="20">
+          <line x1="0" y1="10" x2="105" y2="10" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+          <polygon points="98,4 114,10 98,16" fill="#fff" />
+          <path d="M6 4 L18 10 L6 16" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none" />
+          <circle cx="114" cy="10" r="3.5" fill="#ffe3ec" filter="drop-shadow(0 0 5px #ff6f97)" />
+        </svg>
+      </div>
+
+      <!-- Neon Calligraphy "I love you" -->
+      <div class="neon-confession" id="neonConfession">I love you</div>
+    </section>
+
+    <!-- SCENE 3: CELESTIAL HEART CONSTELLATION & TWO WINGS ONE SKY -->
+    <section class="constellation-scene" id="constellationScene" aria-hidden="true">
+      <!-- Constellation SVG lines & nodes -->
+      <svg class="constellation-svg" id="constellationSvg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
+        <!-- Heart outline paths connecting stars -->
+        <g class="constellation-lines" id="constellationLines"></g>
+        <!-- Star nodes -->
+        <g class="constellation-nodes" id="constellationNodes"></g>
+      </svg>
+
+      <!-- Center Constellation Typography -->
+      <div class="constellation-center" id="constellationCenter">
+        <p class="constellation-sub" id="constellationSub">✦ two wings, one sky ✦</p>
+        <h2 class="constellation-title" id="constellationTitle">fly with me</h2>
+        <!-- Golden underline doodle -->
+        <svg class="constellation-underline" viewBox="0 0 240 32" aria-hidden="true">
+          <path d="M 8 18 C 60 28, 120 10, 190 16 C 215 18, 230 22, 215 25 C 190 28, 160 20, 185 19 C 205 18, 225 21, 235 22" fill="none" stroke="#f6c445" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <!-- Two Luminous Winged Creatures (Cyan & Pink) -->
+      <div class="winged-creature creature-cyan" id="creatureCyan">
+        <div class="creature-aura"></div>
+        <div class="butterfly">
+          <div class="wing wing--left"></div>
+          <div class="body"></div>
+          <div class="wing wing--right"></div>
+        </div>
+      </div>
+
+      <div class="winged-creature creature-pink" id="creaturePink">
+        <div class="creature-aura"></div>
+        <div class="butterfly">
+          <div class="wing wing--left"></div>
+          <div class="body"></div>
+          <div class="wing wing--right"></div>
+        </div>
+      </div>
+
+      <!-- Replay Button -->
+      <button class="again-btn" id="againBtn" aria-label="Replay love letter">↺ AGAIN</button>
+    </section>
+
+    <!-- Background Music Audio Element -->
+    <audio id="bgMusic" src="./music.m4a" preload="auto" loop></audio>
+  </main>
+
+  <script src="./romantic.js"></script>
+</body>
+</html>

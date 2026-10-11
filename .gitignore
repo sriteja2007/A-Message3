@@ -1,0 +1,8 @@
+# Video processing and scratch files
+frames/
+frames_1080/
+reel_video.mp4
+reel_1080p.mp4
+info.json
+.DS_Store
+Thumbs.db

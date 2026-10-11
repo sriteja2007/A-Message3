@@ -1,0 +1,837 @@
+/* ============================================================
+   MOONLIT BLOOM - ROMANTIC LOVE LETTER EXPERIENCE
+   Styling based on interactive GSAP romantic motion design
+   ============================================================ */
+
+:root {
+  --bg-deep: #090e24;
+  --bg-cosmic: #121738;
+  --bg-violet: #1d1744;
+  --heart-main: #ff6f97;
+  --heart-deep: #d81e57;
+  --heart-light: #ffd9e4;
+  --gold-accent: #f6c445;
+  --cyan-aura: #9ae8ff;
+  --pink-aura: #ffb4d6;
+  --text-cream: #fff5f8;
+  --text-muted: rgba(255, 235, 242, 0.75);
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Fraunces', 'Cormorant Garamond', serif;
+  --font-script: 'Great Vibes', cursive;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-deep);
+  color: var(--text-cream);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base Scene Main Container */
+.scene {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, #1c1846 0%, #0d1231 55%, #070a1a 100%);
+}
+
+/* Background Canvas */
+.tree {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: block;
+  pointer-events: none;
+}
+
+/* Sound Toggle Button */
+.sound-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--text-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sound-btn:hover {
+  background: rgba(255, 111, 151, 0.25);
+  border-color: rgba(255, 111, 151, 0.5);
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(255, 111, 151, 0.4);
+}
+
+.sound-btn:active {
+  transform: scale(0.95);
+}
+
+/* ============================================================
+   SCENE 1: HERO SCREEN
+   ============================================================ */
+.hero {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.8s ease;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 48%, rgba(88, 56, 138, 0.35) 0%, rgba(20, 24, 60, 0.8) 60%, rgba(7, 10, 26, 0.95) 100%);
+  pointer-events: none;
+}
+
+.hero__motes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero__eyebrow {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 3.2vw, 2rem);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--text-cream);
+  letter-spacing: 0.04em;
+  margin-bottom: clamp(2rem, 5vh, 3.5rem);
+  text-shadow: 0 2px 14px rgba(255, 111, 151, 0.4), 0 0 30px rgba(255, 255, 255, 0.2);
+  opacity: 0.95;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.targetwrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.target {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(130px, 20vw, 170px);
+  height: clamp(130px, 20vw, 170px);
+}
+
+.heart__glow {
+  position: absolute;
+  width: 140%;
+  height: 140%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 111, 151, 0.45) 0%, rgba(216, 30, 87, 0.2) 40%, transparent 70%);
+  filter: blur(14px);
+  animation: glowPulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.target__heart {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 10px 25px rgba(216, 30, 87, 0.6)) drop-shadow(0 0 40px rgba(255, 111, 151, 0.4));
+  animation: heartbeat 1.6s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  transition: transform 0.25s ease;
+}
+
+.heart__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero:hover .target__heart {
+  transform: scale(1.08);
+}
+
+.hero__prompt {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-serif);
+  font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: clamp(2.5rem, 6vh, 4rem);
+  animation: breathe 2.8s ease-in-out infinite;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.1);
+  }
+  28% {
+    transform: scale(1.03);
+  }
+  42% {
+    transform: scale(1.14);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.22);
+    opacity: 1;
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.55;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translateY(-2px);
+  }
+}
+
+/* ============================================================
+   SCENE 1.5: CUPID ARROW & KINETIC TYPE CONFESSION
+   ============================================================ */
+.confession {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Flying Arrow Light Streak */
+.arrow-streak {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200vw;
+  height: 40px;
+  transform-origin: left center;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 5;
+}
+
+.arrow-beam {
+  position: absolute;
+  top: calc(50% - 2px);
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 30%, rgba(255, 217, 228, 0.8) 75%, #ffffff 100%);
+  box-shadow: 0 0 16px #ff6f97, 0 0 35px #ffffff;
+  filter: blur(0.5px);
+}
+
+.arrow-head {
+  position: absolute;
+  top: calc(50% - 10px);
+  right: 0;
+  transform: translateX(50%);
+  filter: drop-shadow(0 0 12px #ff6f97) drop-shadow(0 0 25px #ffffff);
+}
+
+/* Kinetic Type Card with 3D Tilt */
+.confession__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 30px 40px;
+  transform: perspective(900px) rotateX(12deg) rotateY(-8deg) rotateZ(-12deg);
+  transform-style: preserve-3d;
+  opacity: 0;
+}
+
+.confession__sub {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+  font-style: italic;
+  font-weight: 500;
+  color: rgba(245, 230, 240, 0.9);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.6rem;
+  margin-left: 0.4rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.confession__title {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 8.5vw, 6.8rem);
+  font-weight: 700;
+  line-height: 0.98;
+  color: #fff9fb;
+  letter-spacing: -0.01em;
+  text-shadow: 
+    1px 1px 0px #d81e57,
+    2px 2px 0px #ba1346,
+    4px 4px 0px #800e30,
+    6px 6px 20px rgba(216, 30, 87, 0.5),
+    0 0 40px rgba(255, 111, 151, 0.35);
+  transform: translateZ(30px);
+}
+
+.confession__title-line2 {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.confession__underline {
+  width: clamp(200px, 32vw, 320px);
+  height: 40px;
+  margin-top: -8px;
+  margin-left: 20px;
+  overflow: visible;
+  filter: drop-shadow(0 0 8px rgba(246, 196, 69, 0.8)) drop-shadow(0 0 20px rgba(246, 196, 69, 0.4));
+  transform: translateZ(45px);
+}
+
+.confession__underline path {
+  stroke-dasharray: 450;
+  stroke-dashoffset: 450;
+}
+
+/* Flash Transition Portal */
+.flash-portal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #ffeaf1 35%, #d1c8f8 65%, transparent 75%);
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 50;
+  filter: blur(10px);
+}
+
+/* ============================================================
+   SCENE 2: BLOOM OVERLAY ELEMENTS
+   ============================================================ */
+.bloom-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Radiant Sunburst Rays */
+.sunburst {
+  position: absolute;
+  top: 38%;
+  left: 70%;
+  width: 120vmax;
+  height: 120vmax;
+  transform: translate(-50%, -50%);
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(255, 255, 255, 0.05) 0deg 8deg,
+    transparent 8deg 18deg
+  );
+  border-radius: 50%;
+  mask-image: radial-gradient(circle, rgba(0, 0, 0, 0.85) 0%, transparent 65%);
+  -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 0.85) 0%, transparent 65%);
+  animation: sunburstRotate 60s linear infinite;
+  opacity: 0;
+}
+
+@keyframes sunburstRotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Canopy Badges */
+.tree-badge {
+  position: absolute;
+  z-index: 20;
+  padding: 6px 22px 8px;
+  border-radius: 30px;
+  background: rgba(40, 32, 75, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: #fff2f6;
+  text-shadow: 0 0 15px rgba(255, 111, 151, 0.8);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 111, 151, 0.3);
+  opacity: 0;
+  transform: scale(0.6) translateY(10px);
+}
+
+.badge-you {
+  top: 14%;
+  left: 54%;
+}
+
+.badge-me {
+  top: 44%;
+  right: 11%;
+}
+
+/* Ambient Poetic Quotes */
+.quote {
+  position: absolute;
+  z-index: 18;
+  font-family: var(--font-serif);
+  font-size: clamp(0.95rem, 2vw, 1.35rem);
+  font-style: italic;
+  font-weight: 500;
+  color: rgba(255, 240, 248, 0.85);
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 111, 151, 0.3);
+  opacity: 0;
+  white-space: nowrap;
+}
+
+.quote--stars {
+  top: 24%;
+  right: 10%;
+  transform: rotate(56deg);
+  transform-origin: center;
+}
+
+.quote--blooms {
+  bottom: 35%;
+  left: 17%;
+  transform: rotate(56deg);
+  transform-origin: center;
+}
+
+/* Center Climax Glowing Heart */
+.climax-heart-wrap {
+  position: absolute;
+  top: 32%;
+  left: 72%;
+  width: clamp(100px, 14vw, 150px);
+  height: clamp(92px, 13vw, 138px);
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 22;
+  opacity: 0;
+}
+
+.climax-heart-glow {
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 111, 151, 0.6) 0%, rgba(216, 30, 87, 0.3) 50%, transparent 75%);
+  filter: blur(16px);
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.climax-heart {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 25px rgba(255, 111, 151, 0.8)) drop-shadow(0 0 50px rgba(216, 30, 87, 0.5));
+}
+
+.climax-heart-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Climax Arrow Shooting Through Heart */
+.climax-arrow-wrap {
+  position: absolute;
+  top: 32%;
+  left: 72%;
+  width: 600px;
+  height: 40px;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  pointer-events: none;
+  z-index: 25;
+  opacity: 0;
+}
+
+.climax-arrow {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 18px #ff6f97);
+}
+
+/* Neon "I love you" Calligraphy */
+.neon-confession {
+  position: absolute;
+  bottom: 40%;
+  left: 20%;
+  z-index: 26;
+  font-family: var(--font-script);
+  font-size: clamp(3.2rem, 7vw, 5.5rem);
+  color: #fff0f5;
+  text-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.9),
+    0 0 16px #ff6f97,
+    0 0 35px #ff1493,
+    0 0 60px #e60067;
+  transform: rotate(56deg) scale(0.8);
+  opacity: 0;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   SCENE 3: CELESTIAL HEART CONSTELLATION & TWO WINGS ONE SKY
+   ============================================================ */
+.constellation-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Constellation SVG layer */
+.constellation-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(320px, 78vmin, 680px);
+  height: clamp(320px, 78vmin, 680px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+
+.constellation-line {
+  stroke: rgba(255, 255, 255, 0.55);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 12px rgba(160, 230, 255, 0.6));
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+}
+
+.constellation-node {
+  fill: #ffffff;
+  filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 14px rgba(180, 240, 255, 0.9));
+  transform-origin: center;
+  animation: starTwinkle 3s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+}
+
+/* Center Constellation Typography */
+.constellation-center {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transform: rotate(35deg);
+  opacity: 0;
+}
+
+.constellation-sub {
+  font-family: var(--font-serif);
+  font-size: clamp(0.85rem, 1.8vw, 1.15rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: rgba(255, 238, 245, 0.9);
+  text-transform: lowercase;
+  margin-bottom: 0.2rem;
+  text-shadow: 0 0 10px rgba(255, 111, 151, 0.5);
+}
+
+.constellation-title {
+  font-family: var(--font-script);
+  font-size: clamp(3.2rem, 7.5vw, 6rem);
+  font-weight: 400;
+  line-height: 1;
+  color: #fff4f8;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 22px rgba(255, 111, 151, 0.8),
+    0 0 45px rgba(216, 30, 87, 0.6);
+}
+
+.constellation-underline {
+  width: clamp(160px, 28vw, 240px);
+  height: 32px;
+  margin-top: -12px;
+  overflow: visible;
+  filter: drop-shadow(0 0 8px rgba(246, 196, 69, 0.8)) drop-shadow(0 0 18px rgba(246, 196, 69, 0.4));
+}
+
+.constellation-underline path {
+  stroke-dasharray: 380;
+  stroke-dashoffset: 380;
+}
+
+/* Two Luminous Winged Creatures */
+.winged-creature {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  pointer-events: none;
+  z-index: 15;
+  transform: translate(-50%, -50%);
+}
+
+.creature-aura {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.creature-cyan .creature-aura {
+  background: radial-gradient(circle, rgba(160, 235, 255, 0.75) 0%, rgba(100, 200, 255, 0.3) 50%, transparent 75%);
+}
+
+.creature-pink .creature-aura {
+  background: radial-gradient(circle, rgba(255, 160, 200, 0.75) 0%, rgba(255, 100, 160, 0.3) 50%, transparent 75%);
+}
+
+.butterfly {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 200px;
+}
+
+.butterfly .body {
+  width: 4px;
+  height: 18px;
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: 0 0 8px #ffffff;
+  z-index: 2;
+}
+
+.creature-cyan .butterfly .body {
+  background: #e6f9ff;
+  box-shadow: 0 0 10px #8ae4ff;
+}
+
+.creature-pink .butterfly .body {
+  background: #fff0f5;
+  box-shadow: 0 0 10px #ff7da7;
+}
+
+.butterfly .wing {
+  position: absolute;
+  top: 3px;
+  width: 14px;
+  height: 20px;
+  border-radius: 50% 50% 40% 40%;
+  transform-origin: center center;
+}
+
+.creature-cyan .butterfly .wing {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(140, 225, 255, 0.8) 50%, rgba(70, 180, 255, 0.5) 100%);
+  box-shadow: 0 0 8px rgba(140, 225, 255, 0.6);
+}
+
+.creature-pink .butterfly .wing {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 160, 200, 0.8) 50%, rgba(230, 70, 140, 0.5) 100%);
+  box-shadow: 0 0 8px rgba(255, 160, 200, 0.6);
+}
+
+.butterfly .wing--left {
+  left: 1px;
+  transform-origin: right center;
+  animation: flapLeft 0.18s ease-in-out infinite alternate;
+}
+
+.butterfly .wing--right {
+  right: 1px;
+  transform-origin: left center;
+  animation: flapRight 0.18s ease-in-out infinite alternate;
+}
+
+@keyframes flapLeft {
+  from { transform: rotateY(0deg) rotateZ(-15deg); }
+  to { transform: rotateY(65deg) rotateZ(-15deg); }
+}
+
+@keyframes flapRight {
+  from { transform: rotateY(0deg) rotateZ(15deg); }
+  to { transform: rotateY(-65deg) rotateZ(15deg); }
+}
+
+/* Replay AGAIN Button */
+.again-btn {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 30px;
+  background: rgba(30, 24, 60, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #fff2f6;
+  text-transform: uppercase;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 111, 151, 0.2);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.again-btn:hover {
+  background: rgba(255, 111, 151, 0.3);
+  border-color: rgba(255, 111, 151, 0.6);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 25px rgba(216, 30, 87, 0.4), 0 0 25px rgba(255, 111, 151, 0.5);
+}
+
+.again-btn:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+/* ============================================================
+   RESPONSIVENESS (Mobile, Tablet, Desktop)
+   ============================================================ */
+@media (max-width: 768px) {
+  .sound-btn {
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .again-btn {
+    bottom: 24px;
+    right: 24px;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+  }
+
+  .badge-you {
+    top: 12%;
+    left: 48%;
+  }
+
+  .badge-me {
+    top: 48%;
+    right: 8%;
+  }
+
+  .quote--stars {
+    top: 22%;
+    right: 4%;
+  }
+
+  .quote--blooms {
+    bottom: 30%;
+    left: 10%;
+  }
+
+  .neon-confession {
+    bottom: 35%;
+    left: 12%;
+  }
+
+  .climax-heart-wrap {
+    top: 35%;
+    left: 68%;
+  }
+
+  .climax-arrow-wrap {
+    top: 35%;
+    left: 68%;
+  }
+}
